@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://project.com/jaxb"
+           xmlns="http://project.com/jaxb"
+           elementFormDefault="qualified">
+    <xs:complexType name="variants">
+        <xs:sequence>
+            <xs:element name="variant" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="pronounciation">
+        <xs:sequence>
+            <xs:element name="reading" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="wordDetail">
+        <xs:sequence>
+            <xs:element name="pronounciation" type="pronounciation"/>
+            <xs:element name="wordType" type="xs:string"/>
+            <xs:element name="wordInfos" type="wordInfos"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="wordInfos">
+        <xs:sequence>
+            <xs:element name="wordInfo" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="words">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="word" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="unicodeString" type="xs:string"/>
+                            <xs:element name="wordString" type="xs:string"/>
+                            <xs:element name="noOfStroke" type="xs:int"/>
+                            <xs:element name="variants" type="variants"/>
+                    
+                            <xs:element name="wordDetails">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="wordDetail" type="wordDetail" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:all>
+                
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
